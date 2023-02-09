@@ -36,108 +36,122 @@
 /**
  * @brief Attribute Id for SAI route object
  */
-typedef enum _sai_route_entry_attr_t
-{
-    /**
-     * @brief Start of attributes
-     */
-    SAI_ROUTE_ENTRY_ATTR_START,
+typedef enum _sai_route_entry_attr_t {
+  /**
+   * @brief Start of attributes
+   */
+  SAI_ROUTE_ENTRY_ATTR_START,
 
-    /* READ-WRITE */
+  /* READ-WRITE */
 
-    /**
-     * @brief Packet action
-     *
-     * @type sai_packet_action_t
-     * @flags CREATE_AND_SET
-     * @default SAI_PACKET_ACTION_FORWARD
-     */
-    SAI_ROUTE_ENTRY_ATTR_PACKET_ACTION = SAI_ROUTE_ENTRY_ATTR_START,
+  /**
+   * @brief Packet action
+   *
+   * @type sai_packet_action_t
+   * @flags CREATE_AND_SET
+   * @default SAI_PACKET_ACTION_FORWARD
+   */
+  SAI_ROUTE_ENTRY_ATTR_PACKET_ACTION = SAI_ROUTE_ENTRY_ATTR_START,
 
-    /**
-     * @brief Generate User Defined Trap ID for trap/log actions
-     *
-     * When it is SAI_NULL_OBJECT_ID, then packet will not be trapped.
-     *
-     * @type sai_object_id_t
-     * @flags CREATE_AND_SET
-     * @objects SAI_OBJECT_TYPE_HOSTIF_USER_DEFINED_TRAP
-     * @allownull true
-     * @default SAI_NULL_OBJECT_ID
-     */
-    SAI_ROUTE_ENTRY_ATTR_USER_TRAP_ID,
+  /**
+   * @brief Generate User Defined Trap ID for trap/log actions
+   *
+   * When it is SAI_NULL_OBJECT_ID, then packet will not be trapped.
+   *
+   * @type sai_object_id_t
+   * @flags CREATE_AND_SET
+   * @objects SAI_OBJECT_TYPE_HOSTIF_USER_DEFINED_TRAP
+   * @allownull true
+   * @default SAI_NULL_OBJECT_ID
+   */
+  SAI_ROUTE_ENTRY_ATTR_USER_TRAP_ID,
 
-    /**
-     * @brief Next hop or next hop group id for the packet, or a router interface
-     * in case of directly reachable route, or the CPU port in case of IP2ME route
-     *
-     * The next hop id is only effective when the packet action is one of the
-     * following: FORWARD, COPY, LOG, TRANSIT.
-     *
-     * The next hop id can be a generic next hop object, such as next hop, next
-     * hop group. Directly reachable routes are the IP subnets that are
-     * directly attached to the router. For such routes, fill the router
-     * interface id to which the subnet is attached. IP2ME route adds a local
-     * router IP address. For such routes, fill the CPU port
-     * (#SAI_SWITCH_ATTR_CPU_PORT).
-     * When pointing to a next hop group which is empty, the effective routing
-     * action will be DROP.
-     *
-     * When it is SAI_NULL_OBJECT_ID, then packet will be dropped.
-     *
-     * @type sai_object_id_t
-     * @flags CREATE_AND_SET
-     * @objects SAI_OBJECT_TYPE_NEXT_HOP, SAI_OBJECT_TYPE_NEXT_HOP_GROUP, SAI_OBJECT_TYPE_ROUTER_INTERFACE, SAI_OBJECT_TYPE_PORT
-     * @allownull true
-     * @default SAI_NULL_OBJECT_ID
-     */
-    SAI_ROUTE_ENTRY_ATTR_NEXT_HOP_ID,
+  /**
+   * @brief Next hop or next hop group id for the packet, or a router interface
+   * in case of directly reachable route, or the CPU port in case of IP2ME route
+   *
+   * The next hop id is only effective when the packet action is one of the
+   * following: FORWARD, COPY, LOG, TRANSIT.
+   *
+   * The next hop id can be a generic next hop object, such as next hop, next
+   * hop group. Directly reachable routes are the IP subnets that are
+   * directly attached to the router. For such routes, fill the router
+   * interface id to which the subnet is attached. IP2ME route adds a local
+   * router IP address. For such routes, fill the CPU port
+   * (#SAI_SWITCH_ATTR_CPU_PORT).
+   * When pointing to a next hop group which is empty, the effective routing
+   * action will be DROP.
+   *
+   * When it is SAI_NULL_OBJECT_ID, then packet will be dropped.
+   *
+   * @type sai_object_id_t
+   * @flags CREATE_AND_SET
+   * @objects SAI_OBJECT_TYPE_NEXT_HOP, SAI_OBJECT_TYPE_NEXT_HOP_GROUP,
+   * SAI_OBJECT_TYPE_ROUTER_INTERFACE, SAI_OBJECT_TYPE_PORT
+   * @allownull true
+   * @default SAI_NULL_OBJECT_ID
+   */
+  SAI_ROUTE_ENTRY_ATTR_NEXT_HOP_ID,
 
-    /**
-     * @brief User based Meta Data
-     *
-     * Value Range #SAI_SWITCH_ATTR_ROUTE_DST_USER_META_DATA_RANGE
-     *
-     * @type sai_uint32_t
-     * @flags CREATE_AND_SET
-     * @default 0
-     */
-    SAI_ROUTE_ENTRY_ATTR_META_DATA,
+  /**
+   * @brief User based Meta Data
+   *
+   * Value Range #SAI_SWITCH_ATTR_ROUTE_DST_USER_META_DATA_RANGE
+   *
+   * @type sai_uint32_t
+   * @flags CREATE_AND_SET
+   * @default 0
+   */
+  SAI_ROUTE_ENTRY_ATTR_META_DATA,
 
-    /** READ-ONLY */
+  /** READ-ONLY */
 
-    /**
-     * @brief Route entry IP address family
-     *
-     * @type sai_ip_addr_family_t
-     * @flags READ_ONLY
-     * @isresourcetype true
-     */
-    SAI_ROUTE_ENTRY_ATTR_IP_ADDR_FAMILY,
+  /**
+   * @brief Route entry IP address family
+   *
+   * @type sai_ip_addr_family_t
+   * @flags READ_ONLY
+   * @isresourcetype true
+   */
+  SAI_ROUTE_ENTRY_ATTR_IP_ADDR_FAMILY,
 
-    /**
-     * @brief Attach a counter
-     *
-     * When it is empty, then packet hits won't be counted
-     *
-     * @type sai_object_id_t
-     * @flags CREATE_AND_SET
-     * @objects SAI_OBJECT_TYPE_COUNTER
-     * @allownull true
-     * @default SAI_NULL_OBJECT_ID
-     */
-    SAI_ROUTE_ENTRY_ATTR_COUNTER_ID,
+  /**
+   * @brief Attach a counter
+   *
+   * When it is empty, then packet hits won't be counted
+   *
+   * @type sai_object_id_t
+   * @flags CREATE_AND_SET
+   * @objects SAI_OBJECT_TYPE_COUNTER
+   * @allownull true
+   * @default SAI_NULL_OBJECT_ID
+   */
+  SAI_ROUTE_ENTRY_ATTR_COUNTER_ID,
 
-    /**
-     * @brief End of attributes
-     */
-    SAI_ROUTE_ENTRY_ATTR_END,
+  /**
+   * @brief Route Prefix Aggregation ID
+   *
+   * Prefix aggregation ID is used for SRv6 VPN cases. When multiple prefixes
+   * use the same set of remote SRv6 Endpoint(s) but with different VPN SID
+   * values, prefix aggregation id allows SAI to derive different VPN SID while
+   * keeping using single destination (NH or Next hop group)
+   *
+   * @type sai_uint32_t
+   * @flags CREATE_AND_SET
+   * @default 0
+   */
+  SAI_ROUTE_ENTRY_ATTR_PREFIX_AGG_ID,
 
-    /** Custom range base value */
-    SAI_ROUTE_ENTRY_ATTR_CUSTOM_RANGE_START = 0x10000000,
+  /**
+   * @brief End of attributes
+   */
+  SAI_ROUTE_ENTRY_ATTR_END,
 
-    /** End of custom range base */
-    SAI_ROUTE_ENTRY_ATTR_CUSTOM_RANGE_END
+  /** Custom range base value */
+  SAI_ROUTE_ENTRY_ATTR_CUSTOM_RANGE_START = 0x10000000,
+
+  /** End of custom range base */
+  SAI_ROUTE_ENTRY_ATTR_CUSTOM_RANGE_END
 
 } sai_route_entry_attr_t;
 
